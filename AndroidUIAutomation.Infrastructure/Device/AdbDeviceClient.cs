@@ -23,8 +23,8 @@ public sealed class AdbDeviceClient : IDeviceClient
     public Task CaptureScreenshotAsync(string outputPath, CancellationToken cancellationToken)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(outputPath)!);
-        var command = $"exec-out screencap -p > \"{outputPath}\"";
-        return ExecuteShellPipelineAsync(command, cancellationToken);
+        var remoteFile = $"/sdcard/Download/aui_{Guid.NewGuid():N}.png";
+        return CaptureScreenshotInternalAsync(remoteFile, outputPath, cancellationToken);
     }
 
     public Task TapAsync(int x, int y, CancellationToken cancellationToken) =>
@@ -58,29 +58,19 @@ public sealed class AdbDeviceClient : IDeviceClient
         return stdOut;
     }
 
-    private async Task ExecuteShellPipelineAsync(string command, CancellationToken cancellationToken)
+    private async Task CaptureScreenshotInternalAsync(string remoteFile, string outputPath, CancellationToken cancellationToken)
     {
-        var shell = OperatingSystem.IsWindows() ? "cmd" : "/bin/bash";
-        var shellArgs = OperatingSystem.IsWindows()
-            ? $"/c \"{_adbExecutable} {command}\""
-            : $"-lc \"{_adbExecutable} {command}\"";
-
-        var startInfo = new ProcessStartInfo
+        await ExecuteAsync($"shell screencap -p {remoteFile}", cancellationToken);
+        await ExecuteAsync($"pull {remoteFile} {Quote(outputPath)}", cancellationToken);
+        try
         {
-            FileName = shell,
-            Arguments = shellArgs,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-            CreateNoWindow = true
-        };
-
-        using var process = Process.Start(startInfo) ?? throw new InvalidOperationException("Unable to start adb shell process.");
-        var stdErr = await process.StandardError.ReadToEndAsync(cancellationToken);
-        await process.WaitForExitAsync(cancellationToken);
-
-        if (process.ExitCode != 0)
+            await ExecuteAsync($"shell rm {remoteFile}", cancellationToken);
+        }
+        catch
         {
-            throw new InvalidOperationException($"adb shell command failed ({command}): {stdErr}");
+            // Ignore cleanup failure to avoid masking the screenshot operation.
         }
     }
+
+    private static string Quote(string value) => $"\"{value.Replace("\"", "\\\"", StringComparison.Ordinal)}\"";
 }

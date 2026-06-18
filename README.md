@@ -21,20 +21,20 @@ AndroidUIAutomation/
 
 ## Console Usage
 ```bash
-dotnet run --project /home/runner/work/android-ui-automation/android-ui-automation/AndroidUIAutomation.UI.Console -- --instruction-set sequence1.json --iterations 1
+dotnet run --project ./AndroidUIAutomation.UI.Console -- --instruction-set sequence1.json --iterations 1
 ```
 
 Capture screenshot:
 ```bash
-dotnet run --project /home/runner/work/android-ui-automation/android-ui-automation/AndroidUIAutomation.UI.Console -- --capture --name screen1
+dotnet run --project ./AndroidUIAutomation.UI.Console -- --capture --name screen1
 ```
 
 Enable debug logging:
 ```bash
-dotnet run --project /home/runner/work/android-ui-automation/android-ui-automation/AndroidUIAutomation.UI.Console -- --debug
+dotnet run --project ./AndroidUIAutomation.UI.Console -- --debug
 ```
 
 ## Testing
 ```bash
-dotnet test /home/runner/work/android-ui-automation/android-ui-automation/AndroidUIAutomation.Tests/AndroidUIAutomation.Tests.csproj
+dotnet test ./AndroidUIAutomation.Tests/AndroidUIAutomation.Tests.csproj
 ```
