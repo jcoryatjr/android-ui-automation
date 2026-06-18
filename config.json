@@ -1,0 +1,5 @@
+{
+  "adbExecutable": "adb",
+  "defaultInstructionSet": "sequence1.json",
+  "defaultIterations": 1
+}

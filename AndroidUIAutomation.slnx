@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="AndroidUIAutomation.Core/AndroidUIAutomation.Core.csproj" />
+  <Project Path="AndroidUIAutomation.Domain/AndroidUIAutomation.Domain.csproj" />
+  <Project Path="AndroidUIAutomation.Infrastructure/AndroidUIAutomation.Infrastructure.csproj" />
+  <Project Path="AndroidUIAutomation.Tests/AndroidUIAutomation.Tests.csproj" />
+  <Project Path="AndroidUIAutomation.UI.Console/AndroidUIAutomation.UI.Console.csproj" />
+  <Project Path="AndroidUIAutomation.UI.Wpf/AndroidUIAutomation.UI.Wpf.csproj" />
+</Solution>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="MSTest" Version="4.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AndroidUIAutomation.Domain\AndroidUIAutomation.Domain.csproj" />
+    <ProjectReference Include="..\AndroidUIAutomation.Core\AndroidUIAutomation.Core.csproj" />
+    <ProjectReference Include="..\AndroidUIAutomation.Infrastructure\AndroidUIAutomation.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
