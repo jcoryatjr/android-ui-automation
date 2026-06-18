@@ -1,0 +1,32 @@
+{
+  "name": "SmokeTestSequence",
+  "randomPauseBetweenIterations": {
+    "lowerBoundMinutes": 1,
+    "upperBoundMinutes": 2
+  },
+  "instructions": [
+    {
+      "type": "find",
+      "imageName": "button.png",
+      "scrollPattern": "zigzag",
+      "repeatUntilNotFound": false,
+      "maxScrollAttempts": 3,
+      "retry": {
+        "maxAttempts": 3,
+        "initialDelayMilliseconds": 200,
+        "backoffMultiplier": 2
+      }
+    },
+    {
+      "type": "press",
+      "action": "tap",
+      "x": 100,
+      "y": 200
+    },
+    {
+      "type": "wait",
+      "lowerBoundMinutes": 0,
+      "upperBoundMinutes": 1
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "RepeatUntilExhausted",
+  "randomPauseBetweenIterations": {
+    "lowerBoundMinutes": 5,
+    "upperBoundMinutes": 15
+  },
+  "instructions": [
+    {
+      "type": "find",
+      "imageName": "menu_item.png",
+      "scrollPattern": "spiral",
+      "repeatUntilNotFound": true,
+      "maxScrollAttempts": 4
+    },
+    {
+      "type": "press",
+      "action": "tap",
+      "x": 450,
+      "y": 320
+    }
+  ]
+}
