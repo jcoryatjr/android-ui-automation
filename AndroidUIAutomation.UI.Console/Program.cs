@@ -116,6 +116,10 @@ static async Task CaptureScreenshotAsync(IServiceProvider serviceProvider, AppOp
     }
 
     var safeName = string.Join("_", name.Split(Path.GetInvalidFileNameChars(), StringSplitOptions.RemoveEmptyEntries)).Trim();
+    while (safeName.Contains("__", StringComparison.Ordinal))
+    {
+        safeName = safeName.Replace("__", "_", StringComparison.Ordinal);
+    }
     var fileName = $"{DateTime.UtcNow:yyyy-MM-dd_HHmmss}_{safeName}.png";
     var destination = Path.Combine(fileSystemLayout.ScreenshotsPath, fileName);
     await device.CaptureScreenshotAsync(destination, cancellationToken);
@@ -165,7 +169,13 @@ internal sealed record AppOptions
                     options = options with { AdbExecutable = GetValue(args, ++i, "--adb") };
                     break;
                 case "--iterations":
-                    options = options with { Iterations = int.Parse(GetValue(args, ++i, "--iterations")) };
+                    var iterationsText = GetValue(args, ++i, "--iterations");
+                    if (!int.TryParse(iterationsText, out var iterations))
+                    {
+                        throw new ArgumentException($"Invalid value for --iterations: '{iterationsText}'. Expected an integer.");
+                    }
+
+                    options = options with { Iterations = iterations };
                     break;
             }
         }

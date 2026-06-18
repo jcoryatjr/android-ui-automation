@@ -13,7 +13,7 @@ public sealed class FindInstructionExecutor : IInstructionExecutor
     {
         var findInstruction = (FindInstruction)instruction;
         var imagePath = Path.Combine(context.FileSystemLayout.SearchImagesPath, findInstruction.ImageName);
-        var screenshotPath = Path.Combine(context.FileSystemLayout.ScreenshotsPath, $"{DateTime.UtcNow:yyyy-MM-dd_HHmmss_fff}_find.png");
+        var screenshotPath = Path.Combine(context.FileSystemLayout.ScreenshotsPath, $"{DateTime.UtcNow:yyyy-MM-dd_HHmmss_fff}_{Guid.NewGuid():N}_find.png");
 
         return await context.RetryPolicy.ExecuteAsync(async () =>
         {
